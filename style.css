@@ -35,3 +35,11 @@ body {
 .text-center {
   text-align: center;
 }
+
+#title {
+  margin-top: 20px;
+}
+
+.row {
+  margin-top: 60px;
+}
