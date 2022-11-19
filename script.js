@@ -1,5 +1,3 @@
-// https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=3f59a4e5cbf1f1c3b1b16d3fd65dafd6
-
 document.body.innerHTML = `
 <div class="container">
   <h1 id="title" class="text-center">Rest Countries data</h1>
@@ -15,6 +13,7 @@ const region = document.querySelector("#region");
 const countryCode = document.querySelector("#country-code");
 
 let restCountryUrl = "https://restcountries.com/v3.1/all";
+// Getting the country data
 const getCountries = async () => {
   let countries;
   try {
@@ -33,6 +32,7 @@ const getCountries = async () => {
   return countries;
 };
 
+// Displaying the country data
 const renderCountry = async () => {
   const countries = await getCountries();
   let row = document.querySelector(".row");
@@ -49,10 +49,8 @@ const renderCountry = async () => {
       return el;
     }
   });
-  // console.log(definedCountriesData);
 
   for (let country of countries) {
-    // console.log(country.latlng);
     if (country === undefined) {
       break;
     }
@@ -81,12 +79,13 @@ const renderCountry = async () => {
 };
 renderCountry();
 
+// Get weather data
 const getWeather = async (lat, lng) => {
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=3f59a4e5cbf1f1c3b1b16d3fd65dafd6`;
   try {
     const data = await fetch(url);
+    // Inside fetch there is no data except url because removing that data solved the cors issue
     let countryWeather = await data.json();
-    console.log(countryWeather, countryWeather.main.temp);
     let temp = `
       Country: ${countryWeather.name}
       Temperature: ${(countryWeather.main.temp - 273.15).toFixed(2)}°C
